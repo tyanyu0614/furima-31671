@@ -24,8 +24,8 @@
 
 | Column            | Type       | Options                       |
 | --------------    | ---------- | ----------------------------- |
-| item_name         | string     | null: false                   |
-| item_description  | text       | null: false                   |
+| name         　　　| string     | null: false                   |
+| description  　　　| text       | null: false                   |
 | category_id       | integer    | null: false                   |
 | condition_id      | integer    | null: false                   |
 | shipping_area_id  | integer    | null: false                   |
@@ -36,7 +36,7 @@
 ### Association
 
 - belongs_to :user
-- has_many :purchases
+- has_one :purchases
 
 
 ## addresses テーブル
