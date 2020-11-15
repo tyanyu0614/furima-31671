@@ -6,7 +6,6 @@
 | ----------------   | ------ | ----------- |
 | nickname           | string | null: false |
 | email              | string | null: false |
-| password           | string | null: false |
 | encrypted_password | string | null: false |
 | first_name         | string | null: false |
 | last_name          | string | null: false |   
@@ -26,35 +25,35 @@
 | Column            | Type       | Options                       |
 | --------------    | ---------- | ----------------------------- |
 | item_name         | string     | null: false                   |
-| item_description  | integer    | null: false                   |
+| item_description  | text       | null: false                   |
 | category_id       | integer    | null: false                   |
 | condition_id      | integer    | null: false                   |
 | shipping_area_id  | integer    | null: false                   |
 | day_id            | integer    | null: false                   |
-| price_id          | integer    | null: false                   |
+| price             | integer    | null: false                   |
 | user              | references | null: false,foreign_key: true |
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :purchases
 
 
-## address テーブル
+## addresses テーブル
 
 | Column           | Type       | Options                       |
 | -----------------| ---------- | ----------------------------- |
-| shipping_address | text       | null: false                   |
 | postal_code      | string     | null: false                   |
-| prefecture       | string     | null: false                   |
-| address_number   | string     | null: false                   |
+| prefecture_id    | integer    | null: false                   |
 | municipalities   | string     | null: false                   |
+| address_number   | string     | null: false                   |
+| building_name    | string     |                               |
 | phone_number     | string     | null: false                   |
 | user             | references | null: false,foreign_key: true |
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
 
 
 ## purchases テーブル
@@ -66,5 +65,6 @@
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
+- belongs_to :item
 - has_one :address
