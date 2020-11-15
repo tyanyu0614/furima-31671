@@ -24,11 +24,11 @@
 
 | Column            | Type       | Options                       |
 | --------------    | ---------- | ----------------------------- |
-| image_id          | integer    | null: false                   |
 | name         　　　| string     | null: false                   |
 | description  　　　| text       | null: false                   |
 | category_id       | integer    | null: false                   |
 | condition_id      | integer    | null: false                   |
+| delivery_fee_id   | integer    | null: false                   |
 | shipping_area_id  | integer    | null: false                   |
 | day_id            | integer    | null: false                   |
 | price             | integer    | null: false                   |
