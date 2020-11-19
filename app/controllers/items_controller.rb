@@ -1,15 +1,12 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except:[:index,:show]
+  before_action :baria_user, only: [:edit, :update, :destroy]
   def index
     @items = Item.includes(:user).order("created_at DESC")
   end
   
   def new
     @item = Item.new
-  end
-
-  def show
-    @item = Item.find(params[:id])
   end
 
   def create
@@ -21,6 +18,24 @@ class ItemsController < ApplicationController
       end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
+
 
   private
 
@@ -28,4 +43,11 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:image,:name,:description,:price,:condition_id,:delivery_fee_id,:shipping_area_id,:day_id,:category_id).merge(user_id: current_user.id)
   end
 
+  def baria_user
+    @item = Item.find(params[:id])
+    unless current_user == @item.user
+    redirect_to root_path 
+  end
 end
+end
+
