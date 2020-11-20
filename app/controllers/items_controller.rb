@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except:[:index,:show]
-  before_action :baria_user, only: [:edit, :update, :destroy]
   before_action :set_item, only: [:edit, :update, :show]
+  before_action :baria_user, only: [:edit, :update, :destroy]
 
 
   def index
@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
   end
 
   def baria_user
-    @item = Item.find(params[:id])
+    
     unless current_user == @item.user
     redirect_to root_path 
     end
