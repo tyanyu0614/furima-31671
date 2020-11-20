@@ -10,7 +10,6 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options numericality: { other_than: 0 } do
-
   validates :category_id   
   validates :condition_id   
   validates :delivery_fee_id  
