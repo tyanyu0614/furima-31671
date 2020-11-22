@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  before_action :baria_user, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])
@@ -9,18 +10,38 @@ class PurchasesController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
     @user_address =UserAddress.new(address_params)
-    @user_address.save
-      if  @user_address.valid?
-          redirect_to root_path
-      else
-          render :index
-      end
+    if  @user_address.valid?
+        pay_item
+        @user_address.save
+        redirect_to root_path
+    else
+        render :index
+    end
   end
 
 
   private
 
+  #ストロングパラメーター
   def address_params
-    params.require(:user_address).permit(:postal_code,:prefecture_id, :municipalities, :address_number, :building_name,:phone_number).merge(user_id: current_user.id,item_id:params[:item_id])
-   end
+    params.require(:user_address).permit(:postal_code,:prefecture_id, :municipalities, :address_number, :building_name,:phone_number).merge(user_id: current_user.id,item_id:params[:item_id],token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp::Charge.create(
+      amount: @item.price,  # 商品の値段
+      card: address_params[:token],    # カードトークン
+      currency: 'jpy'                 # 通貨の種類（日本円）
+    )
+  end
+
+  def baria_user
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user_id || @item.purchase  != nil
+    redirect_to root_path 
+    end
+  end
+
+  
 end

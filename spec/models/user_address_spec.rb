@@ -6,6 +6,12 @@ RSpec.describe UserAddress, type: :model do
       @user_address = FactoryBot.build(:user_address)
     end
 
+    it "tokenが空では登録できないこと" do
+      @user_address.token = nil
+      @user_address.valid?
+      expect(@user_address.errors.full_messages).to include("Token can't be blank")
+    end
+
     it "郵便番号がない場合は登録できない" do
       @user_address.postal_code = ""
       @user_address.valid?
