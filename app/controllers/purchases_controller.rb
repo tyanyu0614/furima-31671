@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
-  before_action :baria_user, only: [:index]
   before_action :set_purchase, only: [:index,:create,]
+  before_action :baria_user, only: [:index]
 
   def index
     @user_address = UserAddress.new  #フォームオブジェクトのインスタンスを生成し、インスタンス変数に代入する
@@ -36,7 +36,6 @@ class PurchasesController < ApplicationController
   end
 
   def baria_user
-    @item = Item.find(params[:item_id])
     if current_user.id == @item.user_id || @item.purchase  != nil
     redirect_to root_path 
     end
