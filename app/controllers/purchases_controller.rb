@@ -1,4 +1,5 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only:[:index]
   before_action :set_purchase, only: [:index,:create,]
   before_action :baria_user, only: [:index]
 
