@@ -18,56 +18,56 @@ RSpec.describe UserAddress, type: :model do
     it "tokenが空では登録できないこと" do
       @user_address.token = nil
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Token can't be blank")
+      expect(@user_address.errors.full_messages).to include("Tokenを入力してください")
     end
 
     it "郵便番号がない場合は登録できない" do
       @user_address.postal_code = ""
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Postal code can't be blank")
+      expect(@user_address.errors.full_messages).to include("郵便番号を入力してください")
     end
     
     it "郵便番号はハイフンがない場合は登録できない" do
       @user_address.postal_code = 8100000
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+      expect(@user_address.errors.full_messages).to include("郵便番号is invalid. Include hyphen(-)")
     end
     
     it "都道府県がない場合は登録できない" do
       @user_address.prefecture_id = ""
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Prefecture can't be blank")
+      expect(@user_address.errors.full_messages).to include("都道府県を入力してください")
     end
     
     it "都道府県が(--)場合は登録できない" do
       @user_address.prefecture_id = 0
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Prefecture must be other than 0")
+      expect(@user_address.errors.full_messages).to include("都道府県は0以外の値にしてください")
     end
     
     it "市区町村がない場合は登録できない" do
       @user_address.municipalities = ""
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Municipalities can't be blank")
+      expect(@user_address.errors.full_messages).to include("市町村を入力してください")
     end
 
     it "番地がない場合は登録できない" do
       @user_address.address_number = ""
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Address number can't be blank")
+      expect(@user_address.errors.full_messages).to include("番地を入力してください")
     end
     
 
     it "電話番号がない場合は登録できない" do
       @user_address.phone_number = ""
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Phone number can't be blank")
+      expect(@user_address.errors.full_messages).to include("電話番号を入力してください")
     end
 
     it "電話番号は11桁を超える場合は登録できない" do
       @user_address.phone_number = 111111111111
       @user_address.valid?
-      expect(@user_address.errors.full_messages).to include("Phone number is invalid")
+      expect(@user_address.errors.full_messages).to include("電話番号は不正な値です")
     end
   end
 end
